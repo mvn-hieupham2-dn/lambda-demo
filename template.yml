@@ -1,0 +1,171 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Lambda application that calls the Lambda API.
+Globals:
+  Function:
+    Runtime: nodejs16.x
+    Timeout: 100
+    MemorySize: 1024
+    Layers:
+      - !Ref LayerNodeModules
+      - !Ref LayerShared
+    Environment:
+      Variables:
+        DB_HOST: 116.105.73.129
+        DB_PORT: 5432
+        DB_USER: hieu
+        DB_PASS: 12345678!
+        DB_NAME: test_lambda
+Resources:
+  api:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: api
+      TracingEnabled: true
+      OpenApiVersion: 3.0.2
+  functionCreateProduct:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handleCreateProduct
+      Runtime: nodejs16.x
+      CodeUri: dist/lambdas/products
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AWSLambda_ReadOnlyAccess
+        - AWSXrayWriteOnlyAccess
+      Tracing: Active
+      Events:
+        getEndpoint:
+          Type: Api
+          Properties:
+            RestApiId: !Ref api
+            Path: /products
+            Method: POST
+  functionUpdateProduct:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handleUpdateProduct
+      Runtime: nodejs16.x
+      CodeUri: dist/lambdas/products
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AWSLambda_ReadOnlyAccess
+        - AWSXrayWriteOnlyAccess
+      Tracing: Active
+      Events:
+        getEndpoint:
+          Type: Api
+          Properties:
+            RestApiId: !Ref api
+            Path: /product
+            Method: PUT
+  FunctionGetAllProducts:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handleGetAllProducts
+      Runtime: nodejs16.x
+      CodeUri: dist/lambdas/products
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AWSLambda_ReadOnlyAccess
+        - AWSXrayWriteOnlyAccess
+      Tracing: Active
+      Events:
+        getEndpoint:
+          Type: Api
+          Properties:
+            RestApiId: !Ref api
+            Path: /products
+            Method: GET
+  FunctionDeleteProduct:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handleDeleteProduct
+      Runtime: nodejs16.x
+      CodeUri: dist/lambdas/products
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AWSLambda_ReadOnlyAccess
+        - AWSXrayWriteOnlyAccess
+      Tracing: Active
+      Events:
+        getEndpoint:
+          Type: Api
+          Properties:
+            RestApiId: !Ref api
+            Path: /product
+            Method: DELETE
+  FunctionGetProduct:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handleGetProduct
+      Runtime: nodejs16.x
+      CodeUri: dist/lambdas/products
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AWSLambda_ReadOnlyAccess
+        - AWSXrayWriteOnlyAccess
+      Tracing: Active
+      Events:
+        getEndpoint:
+          Type: Api
+          Properties:
+            RestApiId: !Ref api
+            Path: /product
+            Method: GET
+  functionCreateDetail:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.updateProfile
+      Runtime: nodejs16.x
+      CodeUri: dist/lambdas/details
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AWSLambda_ReadOnlyAccess
+      Tracing: Active
+      Events:
+        getEndpoint:
+          Type: Api
+          Properties:
+            RestApiId: !Ref api
+            Path: /detail
+            Method: POST
+  FunctionUpdateDetail:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handleUpdateDetail
+      Runtime: nodejs16.x
+      CodeUri: dist/lambdas/detail
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AWSLambda_ReadOnlyAccess
+      Tracing: Active
+      Events:
+        getEndpoint:
+          Type: Api
+          Properties:
+            RestApiId: !Ref api
+            Path: /detail
+            Method: PUT
+  # lambda module
+  LayerNodeModules:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: layer-node_modules
+      Description: Nodejs modules
+      ContentUri: dist/layers/dependencies/
+      CompatibleRuntimes:
+        - nodejs16.x
+      LicenseInfo: 'MIT'
+      RetentionPolicy: Retain
+  # lambda layer
+  LayerShared:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: layer-shared
+      Description: Shared module
+      ContentUri: dist/layers/shared/
+      CompatibleRuntimes:
+        - nodejs16.x
+      LicenseInfo: 'MIT'
+      RetentionPolicy: Retain

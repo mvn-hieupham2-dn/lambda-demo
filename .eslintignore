@@ -1,0 +1,4 @@
+/dist/*
+/node_modules/*
+/src/layers/dependencies/**
+!**/layers/shared/**
