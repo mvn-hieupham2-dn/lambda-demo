@@ -1,6 +1,4 @@
 # demo-lambda-typescript
-
-
 ## Table of contents
 * [Technologies](#technologies)
 * [Structure](#structure)
@@ -20,12 +18,11 @@
 ├── env.json                                                // override environment lambda
 ├── jest.config.js                                          // config file of jest
 ├── package.json                                            // node module dependencies
-├── security.txt                                            // security of SA
 ├── src                                                     // place of your code
 │   ├── lambdas                                             // place of your lambda function
 │   │   ├── detail                                             // sample function
-│   │   │   ├── detailDto.ts                                    // λ handler
-│   │   │   ├── handler.ts                               // all query database
+│   │   │   ├── detailDto.ts                                   
+│   │   │   ├── handler.ts                                   // λ handler
 │   │   │   └── validator.ts                                // validate for input and output handle
 │   │   └── products
 │   │       ├── productDto.ts
@@ -38,16 +35,15 @@
 │       └── shared                                           // shared folder   
 │           └── nodejs
 │               └── node_modules
-│                   ├── models                               // 
+│                   ├── models                               // models
 │                   │   ├── entites                          // entity folder
 │                   │   │   └── index.entity.ts   
 │                   │   │   └── detail.entity.ts                // example entity
 │                   │   │   └── product.entity.ts                // example entity
-                        ├── repositories                          // entity folder
+                    |   ├── repositories                          // repositores folder
 │                   │   │   └── detail.repositories.ts   
-│                   │   │   └── detail.repositories.ts                // example entity
-│                   │   │   └── index.ts                // example entity
-             // example entity
+│                   │   │   └── detail.repositories.ts                // example repositories
+│                   │   │   └── index.ts                // example repositories
 │                   └── shared                               // 
 │                       └── utils
 │                           ├── custom_error.ts              // format Error
