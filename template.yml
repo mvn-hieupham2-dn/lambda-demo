@@ -12,7 +12,7 @@ Globals:
     Environment:
       Variables:
         DB_HOST: 116.105.73.129
-        DB_PORT: 5432
+        DB_PORT: 5431
         DB_USER: hieu
         DB_PASS: 12345678!
         DB_NAME: test_lambda

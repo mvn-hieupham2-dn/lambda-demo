@@ -10,7 +10,7 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASS}
     ports:
-      - 5432:${DB_PORT} 
+      - 5431:${DB_PORT} 
 networks:
   backend:
-    name: boilerplate-lambda-typescript-local-network
+    name: lambda-typescript-local-network

@@ -1,14 +1,10 @@
-# boilerplate-lambda-typescript
+# demo-lambda-typescript
 
-This is a kickoff repository for lambda function development with Typescript.
 
 ## Table of contents
-* [General info](#general-info)
 * [Technologies](#technologies)
 * [Structure](#structure)
 * [Setup](#setup)
-## General info
-This is boilerplate lambda function by typescript and use database postgresql
 ## Technologies
 - node >= v14.x
 - sam >= 1.5
@@ -27,16 +23,13 @@ This is boilerplate lambda function by typescript and use database postgresql
 ├── security.txt                                            // security of SA
 ├── src                                                     // place of your code
 │   ├── lambdas                                             // place of your lambda function
-│   │   ├── cat                                             // sample function
-│   │   │   ├── index.test.ts                               // example test λ handler
-│   │   │   ├── index.ts                                    // λ handler
-│   │   │   ├── repository.ts                               // all query database
-│   │   │   ├── usecase.ts                                  //  
+│   │   ├── detail                                             // sample function
+│   │   │   ├── detailDto.ts                                    // λ handler
+│   │   │   ├── handler.ts                               // all query database
 │   │   │   └── validator.ts                                // validate for input and output handle
-│   │   └── dog
-│   │       ├── index.ts
-│   │       ├── repository.ts
-│   │       ├── usecase.ts
+│   │   └── products
+│   │       ├── productDto.ts
+│   │       ├── handler.ts
 │   │       └── validator.ts
 │   └── layers                                               // layers dir
 │       ├── dependencies                                     // dependencies need to run λ function
@@ -46,9 +39,15 @@ This is boilerplate lambda function by typescript and use database postgresql
 │           └── nodejs
 │               └── node_modules
 │                   ├── models                               // 
-│                   │   ├── entity                           // entity folder
-│                   │   │   └── cat.entity.ts                // example entity
-│                   │   └── index.ts                         // file config connect db
+│                   │   ├── entites                          // entity folder
+│                   │   │   └── index.entity.ts   
+│                   │   │   └── detail.entity.ts                // example entity
+│                   │   │   └── product.entity.ts                // example entity
+                        ├── repositories                          // entity folder
+│                   │   │   └── detail.repositories.ts   
+│                   │   │   └── detail.repositories.ts                // example entity
+│                   │   │   └── index.ts                // example entity
+             // example entity
 │                   └── shared                               // 
 │                       └── utils
 │                           ├── custom_error.ts              // format Error
